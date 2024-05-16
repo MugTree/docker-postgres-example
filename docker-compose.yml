@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  webapp:
+  postgres-test-app:
     build:
       context: .
     ports:
@@ -14,6 +14,8 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+    env_file:
+      - .env
     depends_on:
       - db
 

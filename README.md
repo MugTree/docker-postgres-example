@@ -9,3 +9,11 @@ To interact with the db from the host. If you look in the docker-compose.yml you
 So to connect to to postgres container something like
 
             psql -h localhost -p 5433 -d mydb -U myuser -W
+
+### Useful commands
+
+docker compose up -d  
+docker compose down
+docker network prune
+docker run -dpr 8000:8000 postgres-test-app
+docker build -t postgres-test-app .
