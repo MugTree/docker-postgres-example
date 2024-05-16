@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
+	_ "github.com/lib/pq"
 )
 
 var Db *sql.DB
@@ -37,6 +39,6 @@ func InitDb() error {
 
 func GetUser() (User, error) {
 	u := User{}
-	err := Db.QueryRow("SELECT name, password FROM users WHERE name = 'Matt").Scan(&u.Name, &u.Password)
+	err := Db.QueryRow(`SELECT user_name, password FROM "user" WHERE user_name = 'Matt'`).Scan(&u.Name, &u.Password)
 	return u, err
 }

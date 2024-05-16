@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi"
 	"github.com/joho/godotenv"
@@ -17,7 +17,8 @@ func HandleGetUser(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(user.Name)
+	w.Write([]byte(user.Name))
+
 }
 
 func main() {
@@ -36,5 +37,6 @@ func main() {
 	r := chi.NewRouter()
 
 	r.Get("/", HandleGetUser)
+	http.ListenAndServe(os.Getenv("APP_PORT"), r)
 
 }
