@@ -15,7 +15,6 @@ type User struct {
 
 func InitDb() error {
 
-	// Need to set some things like the hostname etc
 	var (
 		dbname     = os.Getenv("POSTGRES_DATABASE")
 		dbuser     = os.Getenv("POSTGRES_USER")

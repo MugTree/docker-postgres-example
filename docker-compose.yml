@@ -28,7 +28,9 @@ services:
       - POSTGRES_DATABASE=${POSTGRES_DATABASE}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     expose:
-      - ${POSTGRES_PORT} # Open so that we can port bind with SSH to a DB IDE on dev machine, requires some config adding a .pgpass file to the users home space
+      - ${POSTGRES_PORT}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_PORT}" # Open an external port so we can connect to the DB from an IDE on dev machine, requires some config adding a .pgpass file to the users home space
     networks:
       - mynet
 
