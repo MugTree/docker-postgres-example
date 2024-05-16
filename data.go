@@ -39,6 +39,6 @@ func InitDb() error {
 
 func GetUser() (User, error) {
 	u := User{}
-	err := Db.QueryRow(`SELECT user_name, password FROM "user" WHERE user_name = 'Matt'`).Scan(&u.Name, &u.Password)
+	err := Db.QueryRow(`SELECT user_name, password FROM app_user WHERE user_name = 'Matt'`).Scan(&u.Name, &u.Password)
 	return u, err
 }

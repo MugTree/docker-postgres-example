@@ -15,6 +15,7 @@ FROM scratch
 
 # Copy the built Go executable from the builder stage into the empty container
 COPY --from=builder /app/bin/app /
+COPY --from=builder .env /
 
 # Expose port 8000 to the outside world
 EXPOSE 8000
