@@ -1,12 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/go-chi/chi"
-	"github.com/joho/godotenv"
 )
 
 func HandleGetUser(w http.ResponseWriter, r *http.Request) {
@@ -23,10 +23,7 @@ func HandleGetUser(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("Error loading env")
-		return
-	}
+	fmt.Println(os.Environ())
 
 	err := InitDb()
 
