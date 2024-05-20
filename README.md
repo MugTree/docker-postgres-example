@@ -17,6 +17,8 @@ The db command kept getting run against the default database.
             docker compose down
             docker network prune
 
-#### Follow logs for a specific service in real-time:
+#### Follow logs real-time:
 
             docker-compose logs -f
+
+This seems to just work without any additional commands adding to the docker compose file.
