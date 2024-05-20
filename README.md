@@ -17,3 +17,7 @@ docker compose down
 docker network prune
 docker run -dpr 8000:8000 postgres-test-app
 docker build -t postgres-test-app .
+
+#### Follow logs for a specific service in real-time:
+
+docker-compose logs -f postgres-test-app
