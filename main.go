@@ -23,8 +23,6 @@ func HandleGetUser(w http.ResponseWriter, r *http.Request) {
 
 	user, err := GetUser()
 
-	fmt.Println(user.Name)
-
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,8 +43,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("initialised db")
 
 	r := chi.NewRouter()
 

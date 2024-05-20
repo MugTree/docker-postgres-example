@@ -34,13 +34,10 @@ func InitDb() error {
 
 	Db = db
 
-	fmt.Println("db init")
-
 	return nil
 }
 
 func GetUser() (User, error) {
-	fmt.Println("calling get user..")
 	u := User{}
 	err := Db.QueryRow(`SELECT user_name, password FROM app_user WHERE user_name = 'Matt'`).Scan(&u.Name, &u.Password)
 	return u, err
