@@ -8,7 +8,8 @@ So to connect to to postgres container something like
 
              psql -h localhost -p 5433 -d postgres -U postgres -W
 
-Fiddled around with creating a new database and a new user in the initalisation stage and could't get it working.
+Fiddled around with creating a new database and a new user in the initalisation stage and couldn't seem to get it working.
+The db command kept getting run against the default database.
 
 ### Useful commands
 
