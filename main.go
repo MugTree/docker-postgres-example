@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -11,23 +12,44 @@ import (
 )
 
 func LoadEnv() error {
-	if _, isContainer := os.LookupEnv("IS_CONTAINER"); isContainer {
-		fmt.Println("env variables provided in compose file")
+	if val, _ := os.LookupEnv("IS_CONTAINER"); val == "true" {
 		return nil
 	}
-	fmt.Println("loading .env vars from .env file")
-	return godotenv.Load(".env")
+	fmt.Println("running dev .env")
+	return godotenv.Load(".env.development")
 }
 
-func HandleGetUser(w http.ResponseWriter, r *http.Request) {
+func HandleUsers(w http.ResponseWriter, r *http.Request) {
 
-	user, err := GetUser()
+	temp := template.Must(template.New("page").ParseFiles("./html/page.html"))
+
+	if r.Method == "POST" {
+
+		fmt.Println("this is a post")
+		r.ParseForm()
+
+		err := AddUser(r.FormValue("Name"), r.FormValue("Password"))
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	}
+
+	users, err := GetUsers()
+
+	for _, u := range users {
+		fmt.Println("user:", u.Name)
+	}
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Fprintf(w, "%s", user.Name)
+	vm := make(map[string]interface{})
+	vm["Users"] = users
+
+	temp.ExecuteTemplate(w, "page.html", vm)
 
 }
 
@@ -46,7 +68,8 @@ func main() {
 
 	r := chi.NewRouter()
 
-	r.Get("/", HandleGetUser)
+	r.Get("/", HandleUsers)
+	r.Post("/", HandleUsers)
 	r.Get("/*", http.NotFound)
 
 	if err := http.ListenAndServe(":8000", r); err != http.ErrServerClosed {

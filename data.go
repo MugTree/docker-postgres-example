@@ -37,8 +37,35 @@ func InitDb() error {
 	return nil
 }
 
-func GetUser() (User, error) {
-	u := User{}
-	err := Db.QueryRow(`SELECT user_name, password FROM app_user WHERE user_name = 'Matt'`).Scan(&u.Name, &u.Password)
-	return u, err
+func GetUsers() ([]User, error) {
+	users := []User{}
+	rows, err := Db.Query(`SELECT user_name, password FROM app_user;`)
+
+	if err != nil {
+		return users, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		u := User{}
+		rows.Scan(&u.Name, &u.Password)
+		users = append(users, u)
+	}
+
+	return users, nil
+
+}
+
+func AddUser(name string, password string) error {
+
+	fmt.Println(name, password)
+
+	_, err := Db.Exec("INSERT INTO app_user (user_name, password) VALUES($1, $2);", name, password)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
