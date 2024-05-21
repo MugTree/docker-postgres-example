@@ -9,7 +9,7 @@ So to connect to to postgres container something like
              psql -h localhost -p 5433 -d postgres -U postgres -W
 
 Fiddled around with creating a new database and a new user in the initalisation stage and couldn't seem to get it working.
-The db command kept getting run against the default database.
+The db command kept getting run against the default database so settled with using the postgresdb postgres user combination.
 
 ### Useful commands
 
@@ -25,4 +25,4 @@ The db command kept getting run against the default database.
 
             docker-compose logs -f
 
-This seems to just work without any additional commands adding to the docker compose file.
+---
