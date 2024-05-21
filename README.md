@@ -17,6 +17,10 @@ The db command kept getting run against the default database.
             docker compose down
             docker network prune
 
+### Rebuild
+
+            docker compose up -d --build
+
 #### Follow logs real-time:
 
             docker-compose logs -f
